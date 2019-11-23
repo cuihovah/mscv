@@ -1,0 +1,23 @@
+{
+  "name": "mscv",
+  "version": "1.0.0",
+  "description": "A language that defines a schema that can automatically generate code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cuihovah/mscv.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cuihovah/mscv/issues"
+  },
+  "homepage": "https://github.com/cuihovah/mscv#readme",
+  "dependencies": {
+    "underscore": "^1.9.1"
+  }
+}

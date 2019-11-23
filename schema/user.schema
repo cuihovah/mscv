@@ -1,0 +1,6 @@
+user {
+    *_id: objectId,
+    name: string[<?@>],
+    password: string[&^],
+    +phone: string[<@+->]
+}

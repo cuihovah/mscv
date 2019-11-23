@@ -1,19 +1,3 @@
-# mscv
-A language that defines a schema that can automatically generate code
-
-## Example
-### input
-```
-user {
-    *_id: objectId,
-    name: string[<?@>],
-    password: string[&^],
-    +phone: string[<@+->]
-}
-```
-
-### output
-```javascript
 /**
  * Get the user list by IDs
  */
@@ -217,30 +201,4 @@ route.get('/user/:id/phone', function(req, res){
         });
     });
 });
-```
 
-## Usage
-```shell
-    $ npm install
-    $ node bin/mscv.js schema/user.schema
-```
-
-## Grammar
-
-### Key property
-- \* : Uniqueness representation
-- \+ : Array
-
-### Value property
-- < : Read
-- > : Write
-- ^ : Check
-- & : encrypt
-- \+ : push
-- \- : pop
-
-## Features
-- Node.js Express.js
-
-## Todos
-- Golang Gin
