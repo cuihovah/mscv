@@ -227,13 +227,19 @@ route.get('/user/:id/phone', function(req, res){
 
 ## Grammar
 
+```
+[SCHEMA NAME] {
+    [KEY PROPERTY][KEY NAME]: [TYPE]\[VALUE PROPERTY\],
+}
+```
+
 ### Key property
 - \* : Uniqueness representation
 - \+ : Array
 
 ### Value property
 - < : Read
-- > : Write
+- \> : Write
 - ^ : Check
 - & : encrypt
 - \+ : push
