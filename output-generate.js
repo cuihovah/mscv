@@ -64,7 +64,6 @@ route.post('/user', function(req, res){
         });
     });
 });
-
 /**
  * Gets the user list by condition
  */
@@ -99,27 +98,6 @@ route.get('/user', function(req, res){
 });
 
 /**
- * Updates the name attribute based on the user's ID
- */
-route.put('/user/:id/name', function(req, res){
-    db.collection('user').updateOne({_id: req.params.id}, {$set: {name: req.body.name}}, function(err, doc){
-        /* Here you can write some logging code */
-        if (err !== null) {
-            return res.json({
-                code: 0,
-                msg: err.message,
-                data: null
-            }); 
-        }
-        res.json({
-            code: 0,
-            msg: 'OK',
-            data: doc.name
-        });
-    });
-});
-
-/**
  * Gets the name attribute based on the user's ID
  */
 route.get('/user/:id/name', function(req, res){
@@ -136,6 +114,27 @@ route.get('/user/:id/name', function(req, res){
             code: 0,
             msg: 'OK',
             data: doc['name']
+        });
+    });
+});
+
+/**
+ * Updates the name attribute based on the user's ID
+ */
+route.put('/user/:id/name', function(req, res){
+    db.collection('user').updateOne({_id: req.params.id}, {$set: {name: req.body.name}}, function(err, doc){
+        /* Here you can write some logging code */
+        if (err !== null) {
+            return res.json({
+                code: 0,
+                msg: err.message,
+                data: null
+            }); 
+        }
+        res.json({
+            code: 0,
+            msg: 'OK',
+            data: doc.name
         });
     });
 });
@@ -234,27 +233,6 @@ route.delete('/user/:id/phone', function(req, res){
 });
 
 /**
- * Updates the phone attribute based on the user's ID
- */
-route.put('/user/:id/phone', function(req, res){
-    db.collection('user').updateOne({_id: req.params.id}, {$set: {phone: req.body.phone}}, function(err, doc){
-        /* Here you can write some logging code */
-        if (err !== null) {
-            return res.json({
-                code: 0,
-                msg: err.message,
-                data: null
-            }); 
-        }
-        res.json({
-            code: 0,
-            msg: 'OK',
-            data: doc.phone
-        });
-    });
-});
-
-/**
  * Gets the phone attribute based on the user's ID
  */
 route.get('/user/:id/phone', function(req, res){
@@ -271,6 +249,27 @@ route.get('/user/:id/phone', function(req, res){
             code: 0,
             msg: 'OK',
             data: doc['phone']
+        });
+    });
+});
+
+/**
+ * Updates the phone attribute based on the user's ID
+ */
+route.put('/user/:id/phone', function(req, res){
+    db.collection('user').updateOne({_id: req.params.id}, {$set: {phone: req.body.phone}}, function(err, doc){
+        /* Here you can write some logging code */
+        if (err !== null) {
+            return res.json({
+                code: 0,
+                msg: err.message,
+                data: null
+            }); 
+        }
+        res.json({
+            code: 0,
+            msg: 'OK',
+            data: doc.phone
         });
     });
 });

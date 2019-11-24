@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const engine = require('../lib/engine.js');
+const interpreter = require('../lib/interpreter.js');
+
+function run(){
+    let filePath = path.resolve(process.argv[2]);
+    let script = fs.readFileSync(filePath, 'utf-8');
+    let result = engine.scanner(script);
+    for (let sch of result) {
+        let scripts = sch.script.split(',');
+        for (let scr of scripts) {
+            let x = new engine.KV(scr);
+            sch.kv.push(x);
+        }
+        delete sch.script;
+        let res = interpreter(sch);
+        let script = `
+            const MongoClient = require('mongodb').MongoClient;
+            const assert = require('assert');
+            const express = require('express');
+            const route = express();
+            
+            // Connection URL
+            const url = 'mongodb://cuihovah:cuihovah@106.12.222.112:27017/uc';
+            
+            // Database Name
+            const dbName = 'uc';
+            
+            // Use connect method to connect to the server
+            MongoClient.connect(url, function(err, client) {
+                assert.equal(null, err);
+                console.log("Connected successfully to server");
+                const db = client.db(dbName);
+                ${res}
+                route.listen(8888);
+            });
+        `;
+        // console.log(script);
+        eval(script);
+    }
+    // console.log(JSON.stringify(result, '\t', 3));
+
+}
+
+run();
