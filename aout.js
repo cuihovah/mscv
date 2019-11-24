@@ -66,7 +66,40 @@ route.post('/user', function(req, res){
 });
 
 /**
- * 根据user的ID修改name属性
+ * Gets the user list by condition
+ */
+route.get('/user', function(req, res){
+    let cond = {};
+    for (let name in req.query) {
+        if (["name"].indexOf(name) >= 0) {
+            cond[name] = req.query[name];
+        }
+    }
+    let cur = db.collection('user').find(cond, {"name":1,"phone":1}).skip(req.query.offset).limit(req.query.limit);
+    if (req.query.sortBy) {
+        let sort = {};
+        sort[eq.query.sortBy] = -1;
+        cur.sort(sort);
+    }
+    cur.toArray(function(err, docs){
+        /* Here you can write some logging code */
+        if (err !== null) {
+            return res.json({
+                code: 0,
+                msg: err.message,
+                data: null
+            }); 
+        }
+        res.json({
+            code: 0,
+            msg: 'OK',
+            data: docs
+        });
+    });
+});
+
+/**
+ * Updates the name attribute based on the user's ID
  */
 route.put('/user/:id/name', function(req, res){
     db.collection('user').updateOne({_id: req.params.id}, {$set: {name: req.body.name}}, function(err, doc){
@@ -87,7 +120,7 @@ route.put('/user/:id/name', function(req, res){
 });
 
 /**
- * 根据user的ID获取name属性
+ * Gets the name attribute based on the user's ID
  */
 route.get('/user/:id/name', function(req, res){
     db.collection('user').findOne({_id: req.params.id}, {name: 1}, function(err, doc){
@@ -106,6 +139,10 @@ route.get('/user/:id/name', function(req, res){
         });
     });
 });
+
+/**
+ * Write the password attribute based on the user's ID
+ */
 route.post('/user/:id/password', function(req, res){
     function encrypt(data) {
         return data;
@@ -114,6 +151,14 @@ route.post('/user/:id/password', function(req, res){
         password: encrypt(req.body.encrypt)
     };
     db.collection('user').updateOne({password: req.params.id}, {$set: data}, function(err, doc){
+        /* Here you can write some logging code */
+        if (err !== null) {
+            return res.json({
+                code: 0,
+                msg: err.message,
+                data: null
+            }); 
+        }
         res.json({
             code: 0,
             msg: 'OK',
@@ -121,6 +166,10 @@ route.post('/user/:id/password', function(req, res){
         });
     });
 });
+
+/**
+ * Check the password attribute based on the user's ID
+ */
 route.put('/user/:id/password_check', function(req, res){
     function encrypt(data) {
         return data;
@@ -141,17 +190,20 @@ route.put('/user/:id/password_check', function(req, res){
         });
     });
 });
+
+/**
+ * Push item into user.phone array.
+ */
 route.post('/user/:id/phone', function(req, res){
     db.collection('user').updateOne({_id: req.params.id}, {$push: {phone: req.body.phone}}, function(err, doc){
-        res.json({
-            code: 0,
-            msg: 'OK',
-            data: doc.phone
-        });
-    });
-});
-route.delete('/user/:id/phone', function(req, res){
-    db.collection('user').updateOne({_id: req.params.id}, {$pop: {phone: 1}}, function(err, doc){
+        /* Here you can write some logging code */
+        if (err !== null) {
+            return res.json({
+                code: 0,
+                msg: err.message,
+                data: null
+            }); 
+        }
         res.json({
             code: 0,
             msg: 'OK',
@@ -161,7 +213,28 @@ route.delete('/user/:id/phone', function(req, res){
 });
 
 /**
- * 根据user的ID修改phone属性
+ * Pop item from user.phone array.
+ */
+route.delete('/user/:id/phone', function(req, res){
+    db.collection('user').updateOne({_id: req.params.id}, {$pop: {phone: 1}}, function(err, doc){
+        /* Here you can write some logging code */
+        if (err !== null) {
+            return res.json({
+                code: 0,
+                msg: err.message,
+                data: null
+            }); 
+        }
+        res.json({
+            code: 0,
+            msg: 'OK',
+            data: doc.phone
+        });
+    });
+});
+
+/**
+ * Updates the phone attribute based on the user's ID
  */
 route.put('/user/:id/phone', function(req, res){
     db.collection('user').updateOne({_id: req.params.id}, {$set: {phone: req.body.phone}}, function(err, doc){
@@ -182,7 +255,7 @@ route.put('/user/:id/phone', function(req, res){
 });
 
 /**
- * 根据user的ID获取phone属性
+ * Gets the phone attribute based on the user's ID
  */
 route.get('/user/:id/phone', function(req, res){
     db.collection('user').findOne({_id: req.params.id}, {phone: 1}, function(err, doc){

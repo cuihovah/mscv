@@ -1,3 +1,4 @@
+
 route.put('/<%=name%>/:id/<%=key%>', function(req, res){
     function check(token, callback) {
         /* This is the logic of validation, as long as you add token here */

@@ -1,6 +1,6 @@
 
 /**
- * 根据<%=name%>的ID修改<%=key%>属性
+ * Updates the <%=key%> attribute based on the <%=name%>'s ID
  */
 route.put('/<%=name%>/:id/<%=key%>', function(req, res){
     db.collection('<%=name%>').updateOne({<%=id%>: req.params.id}, {$set: {<%=key%>: req.body.<%=key%>}}, function(err, doc){

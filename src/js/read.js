@@ -1,6 +1,6 @@
 
 /**
- * 根据<%=name%>的ID获取<%=key%>属性
+ * Gets the <%=key%> attribute based on the <%=name%>'s ID
  */
 route.get('/<%=name%>/:id/<%=key%>', function(req, res){
     db.collection('<%=name%>').findOne({<%=id%>: req.params.id}, {<%=key%>: 1}, function(err, doc){

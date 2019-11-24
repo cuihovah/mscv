@@ -1,3 +1,7 @@
+
+/**
+ * Write the <%=key%> attribute based on the <%=name%>'s ID
+ */
 route.post('/<%=name%>/:id/<%=key%>', function(req, res){
     function encrypt(data) {
         return data;

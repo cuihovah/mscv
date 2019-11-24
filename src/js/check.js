@@ -1,3 +1,7 @@
+
+/**
+ * Check the <%=key%> attribute based on the <%=name%>'s ID
+ */
 route.put('/<%=name%>/:id/<%=key%>_check', function(req, res){
     function encrypt(data) {
         return data;

@@ -1,3 +1,7 @@
+
+/**
+ * Gets the <%=name%> list by condition
+ */
 route.get('/<%=name%>', function(req, res){
     let cond = {};
     for (let name in req.query) {

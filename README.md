@@ -244,6 +244,7 @@ route.get('/user/:id/phone', function(req, res){
 - & : encrypt
 - \+ : push
 - \- : pop
+- ? : query
 
 ## Features
 - Node.js Express.js
