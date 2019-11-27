@@ -9,7 +9,9 @@ route.get('/<%=name%>', function(req, res){
             cond[name] = req.query[name];
         }
     }
-    let cur = db.collection('<%=name%>').find(cond, <%=project%>).skip(req.query.offset).limit(req.query.limit);
+    let offset = req.query.offset * 1 || 0;
+    let limit = req.query.limit * 1 || 10;
+    let cur = db.collection('<%=name%>').find(cond, <%=project%>).skip(offset).limit(limit);
     if (req.query.sortBy) {
         let sort = {};
         sort[eq.query.sortBy] = -1;

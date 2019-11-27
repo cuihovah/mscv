@@ -5,7 +5,9 @@ route.get('/<%=name%>/list', function(req, res){
     let cond = {};
     let ids = req.query.id.split(',');
     cond.<%=key%> = {$in: ids};
-    let cur = db.collection('<%=name%>').find(cond, <%=project%>).skip(req.query.offset).limit(req.query.limit);
+    let offset = req.query.offset * 1 || 0;
+    let limit = req.query.limit * 1 || 10;
+    let cur = db.collection('<%=name%>').find(cond, <%=project%>).skip(offset).limit(limit);
     cur.toArray(function(err, docs){
         /* Here you can write some logging code */
         if (err !== null) {
@@ -27,7 +29,11 @@ route.get('/<%=name%>/list', function(req, res){
  * Get the <%=name%> info by ID
  */
 route.get('/<%=name%>/:id', function(req, res){
-    return db.collection('<%=name%>').findOne({<%=key%>: req.params.id}, <%=project%>, function(err, doc){
+    let __id = req.params.id;
+    if ('<%=type%>' === 'objectId') {
+        __id = ObjectID(__id);
+    }
+    return db.collection('<%=name%>').findOne({<%=key%>: __id}, <%=project%>, function(err, doc){
         /* Here you can write some logging code */
         if (err !== null) {
             return res.json({
